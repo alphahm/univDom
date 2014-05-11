@@ -1,0 +1,26 @@
+$dom = new DOMDocument;
+$dom->loadXML($XmlFileText);
+
+//voir pourquoi dans ce cas ca ne marche pas et pourquoi oblige d'utiliser
+//preg_replace pour remplacer les espaces
+//$dom->preserveWhiteSpace = FALSE;
+
+$students = $dom->getElementsByTagName('student');
+
+
+
+
+
+foreach ($students as $student) {
+   echo "<strong>Name of student</strong>: "
+    . "{$student->attributes->getNamedItem('name')->nodeValue}<br/>";
+    
+    foreach ($student->childNodes as $modules) {
+        echo ucfirst($modules->nodeName) . ' ';
+        foreach ($modules->childNodes as $value) {
+            echo "{$value->nodeName}: {$value->nodeValue} <br />";
+        }
+    echo '<br />';
+    }
+    echo '<br />';
+}
